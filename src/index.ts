@@ -151,8 +151,8 @@ function verifyKeyMiddleware(clientPublicKey: string): (req: Request, res: Respo
   }
 
   return function (req: Request, res: Response, next: NextFunction) {
-    const timestamp = (req.header('X-Signature-Timestamp') || '') as string;
-    const signature = (req.header('X-Signature-Ed25519') || '') as string;
+    const timestamp = (req.headers['X-Signature-Timestamp'] || '') as string;
+    const signature = (req.headers['X-Signature-Ed25519'] || '') as string;
 
     function onBodyComplete(rawBody: Buffer) {
       if (!verifyKey(rawBody, signature, timestamp, clientPublicKey)) {
